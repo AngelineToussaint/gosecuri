@@ -7,7 +7,7 @@ import java.awt.CardLayout;
 public class MainPage {
     private JFrame mainFrame;
     private JPanel mainPanel;
-    private String pageName = "Storage";
+    private String pageName = "Authentication";
     private int frameWidth = 800;
     private int frameHeight = 600;
 
