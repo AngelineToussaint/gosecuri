@@ -1,4 +1,4 @@
-package fr.gosecuri.config;
+package fr.gosecuri.kernel;
 
 import java.io.FileInputStream;
 import java.io.IOException;
