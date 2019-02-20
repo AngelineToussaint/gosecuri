@@ -1,7 +1,7 @@
 package fr.gosecuri.model;
 
 import com.google.firebase.database.DataSnapshot;
-import fr.gosecuri.kernel.Firebase;
+import fr.gosecuri.service.Firebase;
 
 public class Kit extends Firebase {
     private String id;

@@ -1,13 +1,5 @@
 package fr.gosecuri;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import fr.gosecuri.kernel.DataListener;
-import fr.gosecuri.model.Kit;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class Demo {
 
     public static void main(String... args) {
