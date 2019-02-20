@@ -1,45 +1,42 @@
 package fr.gosecuri.controller;
 
-import fr.gosecuri.utils.Camera;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamResolution;
+import fr.gosecuri.service.AzureFace;
+import fr.gosecuri.service.Property;
+import com.github.sarxos.webcam.WebcamPanel;
 import fr.gosecuri.view.AuthenticationPage;
 import fr.gosecuri.view.MainPage;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Observer;
-import java.util.Observable;
+import java.net.URISyntaxException;
 
-public class AuthenticationController implements Observer {
-    public static String PHOTO_DIR = "./src/main/resources/photo.jpg";
-
+public class AuthenticationController {
     private AuthenticationPage authenticationPage;
     private MainPage mainPage;
-    private Camera camera;
 
     public AuthenticationController(AuthenticationPage authenticationPage, MainPage mainPage) {
         // Bind References
         this.authenticationPage = authenticationPage;
         this.mainPage = mainPage;
 
-        // Initialize Camera
-        camera = new Camera();
-        camera.addObserver(this);
-
         // Switch to Authentication page when camera is loaded
         switchToPage(MainPage.AUTHENTICATION_PAGE);
 
-        // Add Button Listener
         authenticationPage.getSwitchButton().addActionListener((e) -> {
-            // Take Photo
-            File outputFile = new File(PHOTO_DIR);
             try {
-                ImageIO.write(camera.getPhoto(), "jpg", outputFile);
+                // Write picture
+                ImageIO.write(authenticationPage.getWebcamPanel().getImage(), "PNG", new File(Property.getProperty("azure.filePicture")));
 
-                if(true) {
-                    switchToPage(MainPage.STORAGE_PAGE);
-                }
+                this.detectFace();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -53,22 +50,88 @@ public class AuthenticationController implements Observer {
         mainPage.getLayout().show(mainPage.getMainPanel(), pageTitle);
     }
 
-    public void update(Observable observable, Object arg) {
-        // Refresh Authentication Page JLabel
-        authenticationPage.setCameraFrame((ImageIcon) arg);
-    }
-
     public AuthenticationPage getAuthenticationPage() {
         return authenticationPage;
     }
+
+    /**
+     * @param authenticationPage
+     */
     public void setAuthenticationPage(AuthenticationPage authenticationPage) {
         this.authenticationPage = authenticationPage;
     }
 
-    public Camera getCamera() {
-        return camera;
+    /**
+     * Delete the face after capture
+     */
+    public void detectFace() {
+
+        try {
+            // Create new http request to azure face
+            AzureFace azureFace = new AzureFace("/detect", "application/octet-stream");
+
+            // Request body
+            File file = new File(Property.getProperty("azure.filePicture"));
+            FileInputStream targetStream = new FileInputStream(file);
+            byte[] bytes = new byte[(int) file.length()];
+
+            targetStream.read(bytes);
+            ByteArrayEntity bodyEntity = new ByteArrayEntity(bytes, ContentType.APPLICATION_OCTET_STREAM);
+
+            // Execute request and get result
+            String res = azureFace.post(bodyEntity);
+
+            // Create the JSON
+            if (res.charAt(0) == '[') {
+                JSONArray jsonRes = new JSONArray(res);
+
+                if (jsonRes.length() > 0) {
+                    JSONObject object = jsonRes.getJSONObject(0);
+                    this.findUser(object.get("faceId").toString());
+                }
+
+            } else if (res.charAt(0) == '{') {
+                JSONObject jsonRes = new JSONObject(res);
+                System.out.println(jsonRes);
+            }
+
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
-    public void setCamera(Camera camera) {
-        this.camera = camera;
+
+    /**
+     * Find a user who correspond to the face detected
+     * @param faceId
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public void findUser(String faceId) throws IOException, URISyntaxException {
+        // Create new http request to azure face
+        AzureFace azureFace = new AzureFace("/findsimilars", "application/json");
+
+        // Request body
+        JSONObject jsonReq = new JSONObject();
+        jsonReq.put("faceId", faceId);
+        jsonReq.put("faceListId", "user");
+        jsonReq.put("mode", "matchPerson");
+
+        StringEntity bodyEntity = new StringEntity(jsonReq.toString());
+
+        // Execute request and get result
+        String res = azureFace.post(bodyEntity);
+
+        // Create the JSON
+        if (res.charAt(0) == '[') {
+            JSONArray jsonRes = new JSONArray(res);
+
+            if (jsonRes.length() > 0) {
+                this.switchToPage(MainPage.STORAGE_PAGE);
+            }
+
+        } else if (res.charAt(0) == '{') {
+            JSONObject jsonRes = new JSONObject(res);
+            System.out.println(jsonRes);
+        }
     }
 }
