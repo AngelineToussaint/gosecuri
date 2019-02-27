@@ -25,6 +25,8 @@ public class Kit extends Firebase {
         this.name = dataSnapshot.getValue(Kit.class).getName();
     }
 
+    public Kit() {}
+
     public String getId() {
         return id;
     }

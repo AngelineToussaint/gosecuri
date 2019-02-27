@@ -2,44 +2,55 @@ package fr.gosecuri.view;
 
 import javax.swing.*;
 
-public class StoragePage extends JPanel {
-    private int buttonWidth = 100;
-    private int buttonHeight = 40;
-    private String buttonName = "Se déconnecter";
-    private JButton switchButton;
+public class StoragePage {
+    private JPanel panel;
+    private JCheckBox mousquetonCheckBox;
+    private JCheckBox gantDInterventionCheckBox;
+    private JCheckBox ceintureDeSecuriteTactiqueCheckBox;
+    private JCheckBox detecteurDeMetauxCheckBox;
+    private JCheckBox brassardDeSecuriteCheckBox;
+    private JCheckBox lampeTorcheCheckBox;
+    private JCheckBox gilletParBalleCheckBox;
+    private JButton disconnectButton;
+    private JLabel userLabel;
 
-    public StoragePage() {
-        switchButton = new JButton(buttonName);
-        switchButton.setBounds(50, 50, buttonWidth, buttonHeight);
-
-        add(switchButton);
-    }
-
-    public int getButtonWidth() {
-        return buttonWidth;
-    }
-    public void setButtonWidth(int buttonWidth) {
-        this.buttonWidth = buttonWidth;
+    public JPanel getPanel() {
+        return panel;
     }
 
-    public int getButtonHeight() {
-        return buttonHeight;
-    }
-    public void setButtonHeight(int buttonHeight) {
-        this.buttonHeight = buttonHeight;
+    public JCheckBox getMousquetonCheckBox() {
+        return mousquetonCheckBox;
     }
 
-    public String getButtonName() {
-        return buttonName;
-    }
-    public void setButtonName(String buttonName) {
-        this.buttonName = buttonName;
+    public JCheckBox getGantDInterventionCheckBox() {
+        return gantDInterventionCheckBox;
     }
 
-    public JButton getSwitchButton() {
-        return switchButton;
+    public JCheckBox getCeintureDeSecuriteTactiqueCheckBox() {
+        return ceintureDeSecuriteTactiqueCheckBox;
     }
-    public void setSwitchButton(JButton switchButton) {
-        this.switchButton = switchButton;
+
+    public JCheckBox getDetecteurDeMetauxCheckBox() {
+        return detecteurDeMetauxCheckBox;
+    }
+
+    public JCheckBox getBrassardDeSecuriteCheckBox() {
+        return brassardDeSecuriteCheckBox;
+    }
+
+    public JCheckBox getLampeTorcheCheckBox() {
+        return lampeTorcheCheckBox;
+    }
+
+    public JCheckBox getGilletParBalleCheckBox() {
+        return gilletParBalleCheckBox;
+    }
+
+    public JButton getDisconnectButton() {
+        return disconnectButton;
+    }
+
+    public JLabel getUserLabel() {
+        return userLabel;
     }
 }

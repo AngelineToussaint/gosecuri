@@ -3,7 +3,6 @@ package fr.gosecuri.view;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
-import javafx.scene.control.Button;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +10,9 @@ import java.awt.*;
 public class AuthenticationPage extends JPanel {
     private int buttonWidth = 140;
     private int buttonHeight = 70;
+    private JLabel errorMessage;
     private JLabel cameraLabel;
-    private JButton switchButton;
+    private JButton loginButton;
     private WebcamPanel webcamPanel;
     private String buttonName = "S'identifier";
 
@@ -31,15 +31,23 @@ public class AuthenticationPage extends JPanel {
 
         add(this.webcamPanel, c);
 
-        // Init JButton
-        this.switchButton = new JButton(this.buttonName);
-        this.switchButton.setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
-        this.switchButton.setFont(new Font("Roboto", Font.BOLD, 14));
-        this.switchButton.setForeground(Color.white);
-        this.switchButton.setBackground(new Color(55,158,193));
+        // Init textarea
+        this.errorMessage = new JLabel("");
+        this.errorMessage.setFont(new Font("Roboto", Font.PLAIN, 15));
+        this.errorMessage.setForeground(new Color(193, 49, 34));
 
-        c.anchor = GridBagConstraints.PAGE_START;
-        add(this.switchButton, c);
+        add(this.errorMessage, c);
+
+        // Init JButton
+        this.loginButton = new JButton(this.buttonName);
+        this.loginButton.setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
+        this.loginButton.setFont(new Font("Roboto", Font.BOLD, 14));
+        this.loginButton.setForeground(Color.white);
+        this.loginButton.setBackground(new Color(55,158,193));
+
+        add(this.loginButton, c);
+
+//        c.anchor = GridBagConstraints.PAGE_START;
     }
 
     public void setCameraFrame(ImageIcon frame) {
@@ -67,11 +75,11 @@ public class AuthenticationPage extends JPanel {
         this.cameraLabel = cameraLabel;
     }
 
-    public JButton getSwitchButton() {
-        return this.switchButton;
+    public JButton getLoginButton() {
+        return this.loginButton;
     }
-    public void setSwitchButton(JButton switchButton) {
-        this.switchButton = switchButton;
+    public void setLoginButton(JButton loginButton) {
+        this.loginButton = loginButton;
     }
 
     public String getButtonName() {
@@ -87,5 +95,14 @@ public class AuthenticationPage extends JPanel {
 
     public void setWebcamPanel(WebcamPanel webcamPanel) {
         this.webcamPanel = webcamPanel;
+    }
+
+
+    public JLabel getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(JLabel errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

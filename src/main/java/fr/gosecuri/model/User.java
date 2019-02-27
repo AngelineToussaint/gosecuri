@@ -24,10 +24,14 @@ public class User extends Firebase {
         this.id = id;
 
         DataSnapshot dataSnapshot = this.get(id);
-        this.firstname = dataSnapshot.getValue(User.class).getFirstname();
-        this.lastname = dataSnapshot.getValue(User.class).getLastname();
-        this.picture = dataSnapshot.getValue(User.class).getPicture();
+        User user = dataSnapshot.getValue(User.class);
+
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.picture = user.getPicture();
     }
+
+    public User() {}
 
     public String getId() {
         return id;

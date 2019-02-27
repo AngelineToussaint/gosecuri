@@ -1,5 +1,7 @@
 package fr.gosecuri.view;
 
+import fr.gosecuri.model.User;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
@@ -33,7 +35,7 @@ public class MainPage {
         // Add pages to layout
         mainPanel.add(loadingPage, LOADING_PAGE);
         mainPanel.add(authenticationPage, AUTHENTICATION_PAGE);
-        mainPanel.add(storagePage, STORAGE_PAGE);
+        mainPanel.add(storagePage.getPanel(), STORAGE_PAGE);
 
         // Initialize app
         setPageName(LOADING_PAGE);
@@ -108,6 +110,7 @@ public class MainPage {
     public StoragePage getStoragePage() {
         return storagePage;
     }
+
     public void setStoragePage(StoragePage storagePage) {
         this.storagePage = storagePage;
     }

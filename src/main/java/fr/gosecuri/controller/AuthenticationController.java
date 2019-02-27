@@ -1,10 +1,8 @@
 package fr.gosecuri.controller;
 
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamResolution;
+import fr.gosecuri.model.User;
 import fr.gosecuri.service.AzureFace;
 import fr.gosecuri.service.Property;
-import com.github.sarxos.webcam.WebcamPanel;
 import fr.gosecuri.view.AuthenticationPage;
 import fr.gosecuri.view.MainPage;
 import org.apache.http.entity.ByteArrayEntity;
@@ -20,18 +18,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class AuthenticationController {
+    private StorageController storageController;
     private AuthenticationPage authenticationPage;
     private MainPage mainPage;
 
-    public AuthenticationController(AuthenticationPage authenticationPage, MainPage mainPage) {
+    public AuthenticationController(StorageController storageController, AuthenticationPage authenticationPage, MainPage mainPage) {
         // Bind References
+        this.storageController = storageController;
         this.authenticationPage = authenticationPage;
         this.mainPage = mainPage;
 
         // Switch to Authentication page when camera is loaded
         switchToPage(MainPage.AUTHENTICATION_PAGE);
 
-        authenticationPage.getSwitchButton().addActionListener((e) -> {
+        authenticationPage.getLoginButton().addActionListener((e) -> {
             try {
                 // Write picture
                 ImageIO.write(authenticationPage.getWebcamPanel().getImage(), "PNG", new File(Property.getProperty("azure.filePicture")));
@@ -82,17 +82,17 @@ public class AuthenticationController {
             String res = azureFace.post(bodyEntity);
 
             // Create the JSON
+            System.out.println(res);
             if (res.charAt(0) == '[') {
                 JSONArray jsonRes = new JSONArray(res);
 
                 if (jsonRes.length() > 0) {
-                    JSONObject object = jsonRes.getJSONObject(0);
-                    this.findUser(object.get("faceId").toString());
+                    JSONObject jsonObject = jsonRes.getJSONObject(0);
+                    this.findUser(jsonObject.get("faceId").toString());
+                } else {
+                    this.authenticationPage.getErrorMessage().setText("Aucun visage identifié !");
                 }
 
-            } else if (res.charAt(0) == '{') {
-                JSONObject jsonRes = new JSONObject(res);
-                System.out.println(jsonRes);
             }
 
         } catch (IOException | URISyntaxException e) {
@@ -126,12 +126,16 @@ public class AuthenticationController {
             JSONArray jsonRes = new JSONArray(res);
 
             if (jsonRes.length() > 0) {
+                JSONObject jsonObject = jsonRes.getJSONObject(0);
+
+                User user = new User(jsonObject.get("persistedFaceId").toString());
+                storageController.setUser(user);
+
                 this.switchToPage(MainPage.STORAGE_PAGE);
             }
 
-        } else if (res.charAt(0) == '{') {
-            JSONObject jsonRes = new JSONObject(res);
-            System.out.println(jsonRes);
+        } else {
+            this.authenticationPage.getErrorMessage().setText("Erreur de reconnaissance faciale !");
         }
     }
 }
