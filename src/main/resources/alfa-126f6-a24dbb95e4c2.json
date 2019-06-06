@@ -1,12 +1,12 @@
 {
   "type": "service_account",
-  "project_id": "alfa-126f6",
-  "private_key_id": "a24dbb95e4c226d4593382bf65257eaf666582db",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC0LSqmv9YiusY6\nOIz2z91+iz95MJMGgwIviBsPKXzGL++zHD2BxVRWI+oFm5jEy78qRp9B/0dHceHp\n+D0VoBhBoOhkBfQhoqrrDXIMUjx/9OdLsapWa+6jae01i5KVFunI/0J6Ay5m36vH\nx6dcCa5urJOtncZPlgI2HqSliPIT3v12la6a/p0qrobI01iSF95InRbsycI6ClOD\n799/I4FO3ztozaGoZ80dD09ySRbUtAdov8ESCK8VsE98ZnAlECHboXHIumX/SHna\n874kTXBBuBEz5sDHiIz9XKy3vfXcTFiqDnrzbRP1pKkq/e/FevxRfmSSkpTjuphx\n41yv2O81AgMBAAECgf8sl0ot1gM7S/4w2DvBtPkujyM4pChRPWQ6zPR3ud8VLX7J\nwtgIWClQTNxCq5rshzcj4+jPWkwS4nfP79acA4Mh33ntR0LIxx3zfAT0mffxaeHU\nWe0pmtXQCVTia5Y24fTVblcXtrHXeszR24VZCwxXV6fHGTLEWwBVra1/k3cxTssk\ngK3vu+fDAeORosR6+4JQa3KZB1LpD9mThosGUvPOhemXCkuSooh6XywqgNF0LA19\n8fSOcwVhxhETXnjTpPau2F8A2c5pzY+H2wvKBx+veKP4zogFXmeUCAc5R1tbiV6S\njDj6LUwUa2QoQEMA5Kd3J80ew2POvErvdoGHmxcCgYEA4RBtgfrg6SEXgFselhoT\nogWvsZ06CCnxTPSSZMbgAIGXNSQC3RPLln/+LGFOBo4VJbrpRaCjgdndhLljc0xY\nGrS3X831eldCH+okm2cTxFYGEbuhlKMUpBUeaJFe7vqI1oflXFGIotdvManOwPai\n5GvKkHTwdyXz7gh9p56EAj8CgYEAzPE56+739P4cC1C+qAYopLIK7lTaN5FH4jav\n1EaCg3LBgsgDguW0UUl2/Ict7F97ETbwF91u9xQ/OsZyMy5BY6DnivGAtg/FzqKk\n+glox1fUeA0efDUEzke+jrxdQhL4RfMpqMbzyK9fJPCXaTvkJ8PWifua3DqHDd6y\nI1kIiYsCgYEAyWchB/sQv67MUCG6akplnU0HX6M6ZknaVKpcQvCxTeKqBHT4Vww6\n2LArLV3aLAWDqSLtU1CgYTgsgnRAKdJ82VE08/fkH5nsY5DtN1/zkXQFtGK7Ar85\nXmhDsQG9+Y+bWpd7ybRw2IB/UesKSSWsuUo4mDL9aTI+apmQkKpKqZMCgYBlG/n0\nkaBZiWiymHKHmQpCPuivrsM+OPna/BoBQ4wuZ9ZavG0nDkbI99KxQcwBWxXvZ0hK\nrd+KHL4ZNECxSXfPPFofrYhPyjZP/OQhy7Sa7JURaX+JzeqCDtlPuFTWPV+puw7p\nisZJU2RAaEZ7D6Y/jBnzV2OOlX199UmzsMBKgwKBgQC9s/dXs0cMyyX5O4HWqquo\nWCThtFDNFwpWTm3uyx+6GVWsNYnKBbq6iCVnXx90cug1fQT536vH7LProwuiASTY\neMX4iGixzabUQYzZ9NYlgaOlrGXLI+qt5k38R645gdBybD96wnRLyA7Y5UOmpYyw\n8STGmY0WCprbrcoy8ZA7jw==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-yctuu@alfa-126f6.iam.gserviceaccount.com",
-  "client_id": "117917515772622975140",
+  "project_id": "PROJECT ID HERE",
+  "private_key_id": "PRIVATE KEY ID HERE",
+  "private_key": "PRIVATE KEY HERE",
+  "client_email": "CLIENT EMAIL HERE",
+  "client_id": "CLIENT ID HERE",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-yctuu%40alfa-126f6.iam.gserviceaccount.com"
+  "client_x509_cert_url": "CLIENT CERT URL HERE"
 }
